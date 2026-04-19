@@ -1,0 +1,171 @@
+/* GLOBAL */
+body {
+    background: #0b0f19;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* HEADER */
+h1 {
+    font-size: 42px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #00f5d4, #00bbf9);
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* SIDEBAR */
+section[data-testid="stSidebar"] {
+    background: #121826;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    padding: 24px;
+    border-radius: 18px;
+    background: #121826;
+    text-align: center;
+    margin: 10px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 25px rgba(0,245,212,0.3);
+}
+
+/* BADGE */
+.badge {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #00f5d4, #00bbf9);
+    color: black;
+    margin: 6px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.badge:hover {
+    transform: scale(1.05);
+}
+
+/* BUTTON */
+.stDownloadButton button {
+    background: linear-gradient(90deg, #00f5d4, #00bbf9);
+    color: black;
+    border-radius: 12px;
+    padding: 12px 22px;
+    font-weight: bold;
+    border: none;
+    transition: 0.3s;
+}
+
+.stDownloadButton button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0,245,212,0.5);
+}
+
+/* SPACING */
+.block-container {
+    padding: 2rem;
+}
+
+/* IMAGE */
+img {
+    border-radius: 14px;
+}
+
+/* TABLE */
+.stDataFrame {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.card, .badge {
+    animation: fadeIn 0.5s ease-in-out;
+}
+/* ---------------- NAVBAR ---------------- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: rgba(18, 24, 38, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 18px;
+    color: #00f5d4;
+}
+
+.menu span {
+    margin-left: 20px;
+    cursor: pointer;
+    color: #00bbf9;
+    transition: 0.3s;
+}
+
+.menu span:hover {
+    color: #00f5d4;
+}
+
+/* ---------------- ANIMATED BACKGROUND ---------------- */
+.bg-animation {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at 20% 30%, #00f5d433, transparent),
+                radial-gradient(circle at 80% 70%, #00bbf933, transparent);
+    animation: moveBg 12s infinite alternate;
+}
+
+@keyframes moveBg {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(-50px, -50px); }
+}
+
+/* ---------------- MOBILE RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu {
+        margin-top: 10px;
+    }
+
+    .menu span {
+        display: inline-block;
+        margin-right: 10px;
+        margin-left: 0;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+}
