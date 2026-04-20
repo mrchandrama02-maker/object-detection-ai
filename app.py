@@ -1,12 +1,11 @@
 import gradio as gr
 from ultralytics import YOLO
-import numpy as np
 from PIL import Image
-import cv2
 
 # Load model
 model = YOLO("yolov8n.pt")
 
+# Detection function
 def detect_objects(image, conf_threshold):
     results = model(image, conf=conf_threshold)
 
@@ -43,56 +42,50 @@ def detect_objects(image, conf_threshold):
     return (
         Image.fromarray(output_image),
         summary,
-        total,
-        unique,
-        top_object
+        f"### 🔢 Total Objects: {total}",
+        f"### 📦 Unique Objects: {unique}",
+        f"### 🏆 Top Object: {top_object}"
     )
 
 
-# 🎨 Custom CSS (Premium Look)
+# 🎨 Premium CSS
 css = """
 body {
-    background: linear-gradient(135deg, #0f172a, #020617);
+    background: linear-gradient(135deg, #020617, #0f172a);
     color: white;
 }
 .gradio-container {
     font-family: 'Segoe UI', sans-serif;
 }
-.card {
-    background: #0f172a;
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0px 0px 20px rgba(0,255,255,0.1);
-}
 """
+
 
 with gr.Blocks(css=css) as demo:
 
-    gr.Markdown("# 🔥 Object Detection AI")
-    gr.Markdown("Upload image → detect objects → get insights")
+    # 🔥 Title
+    gr.Markdown("# 🔥 Object Detection AI\n### 🚀 AI Powered Detection with YOLOv8")
 
     with gr.Row():
         with gr.Column():
             image_input = gr.Image(type="numpy", label="📤 Upload Image")
             conf_slider = gr.Slider(0.1, 1.0, value=0.25, label="🎯 Confidence Threshold")
 
-            btn = gr.Button("🚀 Detect Objects")
+            btn = gr.Button("🚀 Detect Objects", variant="primary")
 
         with gr.Column():
             image_output = gr.Image(label="🧠 Detection Result")
             summary_output = gr.Textbox(label="📊 Summary")
 
-    # 💎 Cards Section
+    # 💎 Cards
     with gr.Row():
-        total_card = gr.Number(label="🔢 Total Objects")
-        unique_card = gr.Number(label="📦 Unique Objects")
-        top_card = gr.Textbox(label="🏆 Top Object")
+        total_card = gr.Markdown("### 🔢 Total Objects: 0")
+        unique_card = gr.Markdown("### 📦 Unique Objects: 0")
+        top_card = gr.Markdown("### 🏆 Top Object: None")
 
-    # 📥 Download
+    # ⬇️ Download
     download_btn = gr.File(label="⬇️ Download Result")
 
-    def download_image(img):
+    def save_image(img):
         path = "output.png"
         img.save(path)
         return path
@@ -104,7 +97,7 @@ with gr.Blocks(css=css) as demo:
     )
 
     image_output.change(
-        fn=download_image,
+        fn=save_image,
         inputs=image_output,
         outputs=download_btn
     )
